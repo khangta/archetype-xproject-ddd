@@ -11,8 +11,10 @@
     <groupId>com.acme</groupId>
     <artifactId>archetype-xproject-ddd</artifactId>
     <version>1.0.0</version>
-    <name>archetype-xproject-ddd</name>
+    <name>archetype xproject ddd</name>
     <description>Demo project for Spring Boot</description>
+<!--    <url>https://github.com/khangta/archetype-xproject-ddd</url>-->
+    <packaging>maven-archetype</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -34,11 +36,13 @@
     </dependencies>
 
     <build>
+        <defaultGoal>package</defaultGoal>
+
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
