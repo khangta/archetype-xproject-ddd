@@ -13,11 +13,51 @@
     <version>1.0.0</version>
     <name>archetype xproject ddd</name>
     <description>Demo project for Spring Boot</description>
-<!--    <url>https://github.com/khangta/archetype-xproject-ddd</url>-->
+    <url>https://github.com/khangta/archetype-xproject-ddd</url>
     <packaging>maven-archetype</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
+
+    <scm>
+        <connection>scm:git:git@github.com:khangta/archetype-xproject-ddd.git</connection>
+        <developerConnection>scm:git:git://github.com:khangta/archetype-xproject-ddd.git</developerConnection>
+        <url>https://github.com/khangta/archetype-xproject-ddd/tree/master</url>
+    </scm>
+
+    <organization>
+        <url>https://github.com/khangta</url>
+        <name>khangta</name>
+    </organization>
+    <inceptionYear>2022</inceptionYear>
+
+    <developers>
+        <developer>
+            <name>KhangTA</name>
+            <email>truongankhang@gmail.com</email>
+            <organizationUrl>https://github.com/khangta/archetype-xproject-ddd</organizationUrl>
+            <timezone>UTC+07:00</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,12 +77,14 @@
 
     <build>
         <defaultGoal>package</defaultGoal>
-
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>3.1.1</version>
+            </extension>
+        </extensions>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -51,15 +93,88 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-        </plugins>
 
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.archetype</groupId>
-                <artifactId>archetype-packaging</artifactId>
-                <version>3.1.1</version>
-            </extension>
-        </extensions>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <keyname>0xC6F67753</keyname>
+                            <passphraseServerId>0xC6F67753</passphraseServerId>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId><!-- Server config in settings.xml -->
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                            <includes>
+                                <include>README.md</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
